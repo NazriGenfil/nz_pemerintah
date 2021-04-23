@@ -51,8 +51,10 @@ Config.CarTax = 250
 -- Untuk property sama seperti kendaraan
 Config.PropertyTax = 350
 
--- Setiap berapa kali player mendapat pajak. 60000 adalah 1 menit dalam ms
-Config.TaxInterval = 30 * 60000 -- setaip 30 menit
+-- Setiap berapa kali player mendapat pajak. 60000 adalah 1 menit dalam ms 
+-- Config.TaxInterval = 30 * 60000 -- setaip 30 menit
+
+Config.TaxInterval = 3 * 60000 -- setaip 1 menit
 
 -- Society Account
 Config.SocietyAccount = "society_pemerintah" 

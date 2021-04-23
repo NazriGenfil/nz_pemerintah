@@ -18,9 +18,7 @@ AddEventHandler('esx:setJob', function(job)
   PlayerData.job = job
 end)
 
---[[
 RegisterNetEvent('tax:sendTax')
 AddEventHandler('tax:sendTax', function(source, type, amount)
-  TriggerServerEvent('esx_billing:sendBill', source, Config.SocietyAccount, type, amount)
-end
-]]
+  TriggerServerEvent('esx_billing:sendBill', source, 'society_pemerintah', type, amount)
+end)

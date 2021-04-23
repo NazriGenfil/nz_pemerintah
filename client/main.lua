@@ -46,21 +46,20 @@ OpenPemerintahMenu = function()
 		title    = 'Pemerintah',
 		align    = 'top-right',
 		elements = {
-			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
+			{label = "Interaksi Warga", value = 'citizen_interaction'},
 	}}, function(data, menu)
 		if data.current.value == 'citizen_interaction' then
 			local elements = {
-				{label = _U('id_card'), value = 'identity_card'},
-				{label = _U('unpaid_bills'), value = 'unpaid_bills'},
-                {label = _U('license_check'), value = 'license'}
+				{label = "Cek tagihan", value = 'unpaid_bills'},
+                {label = "Tagihan", value = 'billing'}
 			}
 
-			if ESX.PlayerData.job.grade_name == 'wali' then
-				table.insert(elements, {label = _U('boss_actions'), value = 'boss_actions'})
+			if ESX.PlayerData.job.grade_name == 'boss' then
+				table.insert(elements, {label = "Aksi Boss", value = 'aksi_boss'})
 			end
 
 			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'citizen_interaction', {
-				title    = _U('citizen_interaction'),
+				title    = "Interaksi Warga",
 				align    = 'top-right',
 				elements = elements
 			}, function(data2, menu2)
@@ -68,15 +67,17 @@ OpenPemerintahMenu = function()
 				if closestPlayer ~= -1 and closestDistance <= 3.0 then
 					local action = data2.current.value
 
-					if action == 'identity_card' then
-						OpenIdentityCardMenu(closestPlayer)
-					elseif action == 'license' then
-						ShowPlayerLicense(closestPlayer)
-					elseif action == 'unpaid_bills' then
+					if action == 'unpaid_bills' then
 						OpenUnpaidBillsMenu(closestPlayer)
+					elseif action == 'billing' then 
+						BukaBillingMenu()
+					elseif action == 'aksi_boss' then 
+						TriggerEvent('esx_society:openBossMenu', 'ambulance', function(data, menu)
+							menu.close()
+						end, {wash = false})
 					end
 				else
-					ESX.ShowNotification(_U('no_players_nearby'))
+					ESX.ShowNotification("Tidak ada player disekitar")
 				end
 			end, function(data2, menu2)
 				menu2.close()
@@ -87,8 +88,56 @@ OpenPemerintahMenu = function()
 	end)
 end
 
+BukaBillingMenu = function()
+	ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing', {
+		title = "Jumlah invoice"
+	}, function(data, menu)
+		local amount = tonumber(data.value)
+
+		if amount == nil or amount < 0 then
+			ESX.ShowNotification("Harap masukan nilai invoice yang benar")
+		else
+			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+			if closestPlayer == -1 or closestDistance > 3.0 then
+				ESX.ShowNotification("Tidak ada player disekitar")
+				-- exports['mythic_notify']:DoCustomHudText('inform', _U('no_players_nearby'), 2500, { ['background-color'] = '#FF0000', ['color'] = '#ffffff' })
+			else
+				menu.close()
+				TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_pemerintah', "Pemerintah", amount)
+			end
+		end
+	end, function(data, menu)
+		menu.close()
+	end)
+end
+
+OpenUnpaidBillsMenu = function(player)
+	local elements = {}
+
+	ESX.TriggerServerCallback('esx_billing:getTargetBills', function(bills)
+		for k,bill in ipairs(bills) do
+			table.insert(elements, {
+				-- label = ('%s - <span style="color:red;">%s</span>'):format(bill.label, _U('armory_item', ESX.Math.GroupDigits(bill.amount))),
+				label = ('%s - <span style="color:red;">%s</span>'):format(bill.label, "Rp " ..ESX.Math.GroupDigits(bill.amount)),
+				billId = bill.id
+			})
+		end
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'billing', {
+			title    = "Billing belum dibayar",
+			align    = 'top-right',
+			elements = elements
+		}, nil, function(data, menu)
+			menu.close()
+		end)
+	end, GetPlayerServerId(player))
+end
+
 Citizen.CreateThread(function()
-    if IsControlJustReleased(0, 167) and not isDead and ESX.PlayerData.job and ESX.PlayerData.job.name == 'pemerintah' and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'pemerintah_actions') then
-        OpenPemerintahMenu()
-    end
+	while true do
+		Citizen.Wait(10)
+		if IsControlJustReleased(0, 167) and not isDead and ESX.PlayerData.job and ESX.PlayerData.job.name == 'pemerintah' then
+			OpenPemerintahMenu()
+		end
+	end
 end)
