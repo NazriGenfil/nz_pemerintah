@@ -115,8 +115,11 @@ end
 
 function RunTax(AllUser)
     BankTax(AllUser)
+    Citizen.Wait(1000)
     CarsTax(AllUser)
+    Citizen.Wait(1000)
     PropertiesTax(AllUser)
+    Citizen.Wait(1000)
     Wait(Config.TaxInterval)
     GetUsersForTax()
 end
