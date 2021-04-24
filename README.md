@@ -1,7 +1,7 @@
 # nz_pemerintah
 
 ## Requirements
-- [es_extended v1 final](https://github.com/esx-framework/es_extended/tree/v1-final)/[extendedmode](https://github.com/extendedmode/extendedmode)
+- [es_extended v1 final](https://github.com/esx-framework/es_extended/tree/v1-final) / [extendedmode](https://github.com/extendedmode/extendedmode)
 - [esx_billing](https://github.com/esx-framework/esx_billing)
 - [esx_society](https://github.com/esx-framework/esx_society)
 
