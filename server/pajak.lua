@@ -61,9 +61,7 @@ function BankTax(AllUser)
             if tax ~= 0 then
                 print("---------")
                 print("Pajak Bank " ..Config.SocietyAccount.. " Jumlah " ..ESX.Math.Round(tax))   
-                -- TriggerClientEvent('tax:sendTax', xPlayer.source, xPlayer.source, 'Pajak Bank', ESX.Math.Round(tax))  
-                TriggerEvent('esx_billing:sendBill', xPlayer, 'society_pemerintah', 'Pajak Bank', ESX.Math.Round(tax))
-
+                TriggerClientEvent('tax:sendTax', xPlayer.source, Config.SocietyAccount, 'Pajak Bank', ESX.Math.Round(tax))  
             end         
         end
     end 
@@ -85,8 +83,7 @@ function CarsTax(AllUser)
                 local tax = carCount * taxMultiplier
                 if(xPlayer ~= nil) then
                     print("Pajak Kendaraan " ..Config.SocietyAccount.. " Jumlah " ..ESX.Math.Round(tax))
-                    -- TriggerClientEvent('tax:sendTax', xPlayer.source, xPlayer.source, 'Pajak Kendaraan', ESX.Math.Round(tax))  
-                    TriggerEvent('esx_billing:sendBill', xPlayer, 'society_pemerintah', 'Pajak Kendaraan', ESX.Math.Round(tax))
+                    TriggerClientEvent('tax:sendTax', xPlayer.source, xPlayer.source, 'Pajak Kendaraan', ESX.Math.Round(tax))  
                 end
             end            
         end
@@ -109,8 +106,7 @@ function PropertiesTax(AllUser)
                 local tax = propertyCount * taxMultiplier
                 if(xPlayer ~= nil) then  
                     print("Pajak Rumah " ..Config.SocietyAccount.. " Jumlah " ..ESX.Math.Round(tax))
-                    -- TriggerClientEvent('tax:sendTax', xPlayer.source, xPlayer.source, 'Pajak Rumah', ESX.Math.Round(tax))
-                    TriggerEvent('esx_billing:sendBill', xPlayer, 'society_pemerintah', 'Pajak Rumah', ESX.Math.Round(tax))
+                    TriggerClientEvent('tax:sendTax', xPlayer.source, xPlayer.source, 'Pajak Rumah', ESX.Math.Round(tax))
                 end
             end            
         end
