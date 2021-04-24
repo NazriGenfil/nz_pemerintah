@@ -7,7 +7,7 @@
 
 ## Features
 - Sudah termasuk pajak
-- Terdapat 2 pajak yang wajib dibayar. Pajak kendaraan dan pajak bank, semakin banyak kendaraan/uang yang dimiliki makan akan semakin bayak pula pajak yang di keluarkan
+- Terdapat 3 pajak yang wajib dibayar. Pajak kendaraan, pajak property dan pajak bank, semakin banyak kendaraan/uang yang dimiliki makan akan semakin bayak pula pajak yang di keluarkan
 - Pemerintah dapat melihat tagihan yang belum dibayar oleh player
 
 ## Info
