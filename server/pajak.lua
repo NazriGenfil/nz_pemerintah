@@ -98,7 +98,7 @@ function PropertiesTax(AllUser)
             local xPlayer = ESX.GetPlayerFromId(AllUser[i])
             local propertyCount = 0
             for a=1 , #AllProperties,1 do
-                if xPlayer.getIdentifier() == AllProperties[a].owner and AllProperties[a].rented ~= 1 then
+                if xPlayer.getIdentifier() == AllProperties[a].owner then
                     propertyCount = propertyCount + 1
                 end
             end
