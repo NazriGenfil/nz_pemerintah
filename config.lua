@@ -1,9 +1,9 @@
 Config = {}
-Config.DrawDistance           = 30.0
-
+Config.DrawDistance           = 10.0
+Config.DiscordWebook          = ""
 Config.Zones = {
 	Actions = {
-		Pos   = {x = -538.98, y = -215.68, z = 37.65},
+		Pos   = {x = -535.02, y = -193.02, z = 46.41},
 		Size  = {x = 1.5, y = 1.5, z = 0.4},
 		Color = {r = 102, g = 102, b = 204},
 		Type  = 1
