@@ -9,11 +9,11 @@ server_scripts {
 	'config.lua',
 	'@mysql-async/lib/MySQL.lua',
 	'server/main.lua',
-    'server/pajak.lua'
+    -- 'server/pajak.lua'
 }
 
 client_scripts {
 	'config.lua',
 	'client/main.lua',
-    'client/pajak.lua'
+    -- 'client/pajak.lua'
 }
